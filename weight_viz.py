@@ -38,12 +38,20 @@ def weight_df_from_file(filename):
     return weight_df
 
 
-def plot_from_file(filename):
+def plot_from_file(filename, year=None):
     weight_df = weight_df_from_file(filename)
-    weight_df[dt.date(2025, 1, 1):]['7day_rolling_avg_weight'].astype(float).plot()
+    if year is not None:
+        weight_df = weight_df[dt.date(year, 1, 1):dt.date(year + 1, 1, 1):]
+
+    weight_df['7day_rolling_avg_weight'].astype(float).plot()
     plt.ylabel('lbs')
-    for w in range(180, 201, 10):
-        plt.axhline(w, c='k', ls=':')
+
+    min_weight = min(weight_df['weight'])
+    max_weight = max(weight_df['weight'])
+    bounds = map(int, [min_weight // 10 + 1, (max_weight // 10) + 1])
+    for w in range(*bounds):
+        plt.axhline(w * 10, c='k', ls=':')
 
     plt.legend()
-    plt.title('2025 Weight Tracking')
+    year_string = "" if year is None else f"{year} "
+    plt.title(f'{year_string}Weight Tracking')
