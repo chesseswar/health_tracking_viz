@@ -39,6 +39,22 @@ def weight_df_from_file(filename):
 
 
 def plot_from_file(filename, year=None):
+    """
+    Load Apple health data and plot weight over time.
+
+    The health file is the `apple_health_export/export.xml` file
+    exported from Apple health. This can be exported by going to
+    the Apple Health app, going to the user profile, and clicking
+    `Export All Health Data` at the bottom.
+
+    Parameters
+    ----------
+    filepath : str or pathlib.Path
+        Path to the input file containing tracking data.
+    year : int
+        Optional, restrict to specific calendar year to visualize.
+        Defaults to visualizing all dates available.
+    """
     weight_df = weight_df_from_file(filename)
     if year is not None:
         weight_df = weight_df[dt.date(year, 1, 1):dt.date(year + 1, 1, 1):]

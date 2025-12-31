@@ -21,6 +21,23 @@ def get_dates(filename, year):
 
 
 def plot_tracking(filename, year):
+    """
+    Load tracking data from a file and generate a visualization.
+
+    This function reads a data file containing date-based tracking
+    information and produces a calendar-style visualization for the
+    specified year.
+
+    The tracking data must be formatted as one date per line, where
+    each line starts with `<month int>/<day int>`, ie `12/31` or `01/01`
+
+    Parameters
+    ----------
+    filepath : str or pathlib.Path
+        Path to the input file containing tracking data.
+    year : int
+        Calendar year to visualize.
+    """
     start_of_year = dt.date(year, 1, 1)
     end_of_year = dt.date(year, 12, 31)
     start_sunday = start_of_year - dt.timedelta(days=(start_of_year.weekday() + 1) % 7)
