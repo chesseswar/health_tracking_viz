@@ -25,7 +25,7 @@ def plot_tracking(filename, year):
     end_of_year = dt.date(year, 12, 31)
     start_sunday = start_of_year - dt.timedelta(days=(start_of_year.weekday() + 1) % 7)
 
-    dates = get_dates('gym_tracking/2025.txt', 2025)
+    dates = get_dates(filename, year)
     grid = np.zeros((DAYS, WEEKS))
     for d in dates:
         delta_days = (d - start_sunday).days
@@ -71,6 +71,6 @@ def plot_tracking(filename, year):
     ax.set_yticks(np.arange(-0.5, DAYS, 1), minor=True)
     ax.grid(which="minor", color="lightgray", linewidth=0.5)
     ax.tick_params(which="minor", bottom=False, left=False)
-    ax.set_title("2025 Gym Tracking")
+    ax.set_title(f"{year} Gym Tracking")
     plt.tight_layout()
     plt.show()
