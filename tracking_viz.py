@@ -39,15 +39,14 @@ def plot_tracking(filename, year):
         Calendar year to visualize.
     """
     start_of_year = dt.date(year, 1, 1)
-    end_of_year = dt.date(year, 12, 31)
     start_sunday = start_of_year - dt.timedelta(days=(start_of_year.weekday() + 1) % 7)
 
     dates = get_dates(filename, year)
-    grid = np.zeros((DAYS, WEEKS))
+    grid = np.zeros((DAYS, WEEKS + 1))
     for d in dates:
         delta_days = (d - start_sunday).days
         week_idx = delta_days // 7
-        if 0 <= week_idx < WEEKS:
+        if 0 <= week_idx <= WEEKS:
             weekday_idx = (d.weekday() + 1) % 7
             grid[weekday_idx, week_idx] = 0.5
 
